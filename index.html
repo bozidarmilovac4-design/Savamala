@@ -88,18 +88,23 @@
             transition: height 0.1s linear;
         }
 
-        /* Redovi (Levo-Desno) */
+        /* Redovi (Zig-Zag) */
         .event-row {
             position: relative;
             width: 100%;
             margin-bottom: 100px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             z-index: 3;
             opacity: 0;
             transform: translateY(50px);
             transition: all 0.7s ease-out;
+            justify-content: flex-start; /* Default levo */
+            padding: 0 5%;
+        }
+
+        /* Svaki drugi red ide DESNO */
+        .event-row:nth-child(even) {
+            justify-content: flex-end;
         }
 
         .event-row.active {
@@ -123,13 +128,11 @@
             box-shadow: 13px 13px 0px var(--krik-black);
         }
 
-        /* Naizmenični raspored */
-        .event-row:nth-child(even) { flex-direction: row-reverse; }
-
         /* Tačka na sredini */
         .event-dot {
             position: absolute;
             left: 50%;
+            top: 30px;
             width: 20px;
             height: 20px;
             background: var(--krik-white);
@@ -155,16 +158,16 @@
 
         .desc-text { font-size: 0.95rem; line-height: 1.7; color: #111; }
 
-        /* Fullscreen */
-        .savamala-widget:fullscreen { width: 100vw; height: 100vh; max-width: none; }
-
-        /* Mobilni unutar widgeta */
-        @media (max-width: 750px) {
+        /* Mobilni unutar widgeta - isključujemo zig-zag samo na malim ekranima */
+        @media (max-width: 650px) {
             .timeline-line-bg, .timeline-progress-bar { left: 30px; transform: none; }
-            .event-row { flex-direction: row !important; padding-left: 65px; margin-bottom: 60px; }
-            .event-card { width: 92%; }
-            .event-dot { left: 30px; transform: translateX(-50%); }
-            .event-row.active .event-dot { transform: translateX(-50%) scale(1.1); }
+            .event-row, .event-row:nth-child(even) { 
+                justify-content: flex-start !important; 
+                padding-left: 65px; 
+                margin-bottom: 60px; 
+            }
+            .event-card { width: 90%; }
+            .event-dot { left: 30px; transform: translateX(-50%); top: 20px; }
         }
     </style>
 </head>
@@ -326,7 +329,6 @@
             const rect = row.getBoundingClientRect();
             const containerRect = scrollArea.getBoundingClientRect();
             
-            // Aktivacija kada kartica uđe dovoljno duboko u box
             if (rect.top < containerRect.bottom - 150) {
                 row.classList.add('active');
             } else {
@@ -344,7 +346,6 @@
         }
     }
 
-    // Okidanje odmah po učitavanju
     scrollArea.dispatchEvent(new Event('scroll'));
 </script>
 
