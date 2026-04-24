@@ -19,7 +19,7 @@
 
         .savamala-widget {
             width: 100%;
-            max-width: 1000px; /* Malo prošireno zbog slika */
+            max-width: 1100px; 
             height: 750px; 
             border: 3px solid var(--krik-black);
             background: var(--krik-white);
@@ -88,52 +88,63 @@
         .event-row {
             position: relative;
             width: 100%;
-            margin-bottom: 120px;
+            margin-bottom: 150px;
             display: flex;
+            align-items: flex-start;
             z-index: 3;
             opacity: 0;
             transform: translateY(50px);
             transition: all 0.7s ease-out;
-            justify-content: flex-start;
-            padding: 0 5%;
+            padding: 0 4%;
         }
-
-        .event-row:nth-child(even) { justify-content: flex-end; }
 
         .event-row.active {
             opacity: 1;
             transform: translateY(0);
         }
 
+        /* Kartica sa tekstom */
         .event-card {
-            width: 45%;
+            width: 44%;
             background: var(--krik-white);
             border: 2px solid var(--krik-black);
-            padding: 20px;
+            padding: 25px;
             box-shadow: 10px 10px 0px var(--krik-black);
             position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
         }
 
-        /* Stil za slike */
-        .event-image {
-            width: 100%;
-            height: auto;
-            border: 1px solid var(--krik-black);
-            display: block;
-            background: #eee;
+        /* Kontejner za sliku pored teksta */
+        .img-side {
+            width: 44%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        .side-image {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border: 2px solid var(--krik-black);
+            box-shadow: 6px 6px 0px #ccc;
+        }
+
+        /* Raspored: Tekst levo - Slika desno */
+        .event-row:nth-child(odd) { flex-direction: row; }
+        .event-row:nth-child(odd) .img-side { margin-left: auto; }
+
+        /* Raspored: Slika levo - Tekst desno */
+        .event-row:nth-child(even) { flex-direction: row-reverse; }
+        .event-row:nth-child(even) .img-side { margin-right: auto; }
 
         .event-dot {
             position: absolute;
             left: 50%;
-            top: 30px;
-            width: 20px;
-            height: 20px;
+            top: 40px;
+            width: 22px;
+            height: 22px;
             background: var(--krik-white);
-            border: 4px solid var(--krik-black);
+            border: 5px solid var(--krik-black);
             border-radius: 50%;
             transform: translateX(-50%);
             z-index: 5;
@@ -141,34 +152,31 @@
 
         .event-row.active .event-dot {
             background: var(--krik-black);
-            transform: translateX(-50%) scale(1.3);
+            transform: translateX(-50%) scale(1.2);
         }
 
         .date-tag {
             font-weight: 900;
-            font-size: 1rem;
-            border-bottom: 4px solid var(--krik-black);
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            border-bottom: 5px solid var(--krik-black);
+            margin-bottom: 15px;
             display: inline-block;
-            width: fit-content;
         }
 
-        .desc-text { font-size: 0.95rem; line-height: 1.6; color: #111; }
-        
-        .desc-text a {
-            color: var(--krik-black);
-            font-weight: bold;
-            text-decoration: underline;
-        }
+        .desc-text { font-size: 1rem; line-height: 1.7; color: #111; }
+        .desc-text a { color: var(--krik-black); font-weight: bold; text-decoration: underline; }
 
-        @media (max-width: 750px) {
-            .timeline-line-bg, .timeline-progress-bar { left: 30px; transform: none; }
+        /* Mobilna verzija: Slika ide iznad teksta, sve je u jednoj koloni */
+        @media (max-width: 800px) {
+            .timeline-line-bg, .timeline-progress-bar { left: 25px; transform: none; }
             .event-row, .event-row:nth-child(even) { 
-                justify-content: flex-start !important; 
-                padding-left: 65px; 
+                flex-direction: column !important;
+                padding-left: 60px;
+                margin-bottom: 80px;
             }
-            .event-card { width: 90%; }
-            .event-dot { left: 30px; transform: translateX(-50%); }
+            .event-card, .img-side { width: 95%; margin: 0 !important; }
+            .img-side { margin-bottom: 15px !important; }
+            .event-dot { left: 25px; transform: translateX(-50%); }
         }
     </style>
 </head>
@@ -185,106 +193,61 @@
         <div class="timeline-progress-bar" id="pBar"></div>
 
         <div class="event-row">
-            <div class="event-dot"></div>
             <div class="event-card">
                 <span class="date-tag">24/25. APRIL 2016.</span>
-                <img src="slika1.jpg" alt="Savamala rušenje" class="event-image">
                 <p class="desc-text">U izbornoj noći, bageri bez oznaka su srušili objekte u Hercegovačkoj ulici. Maskirane osobe su vezale čuvara Slobodana Tanaskovića i oduzele telefone prolaznicima. Policija je odbila da izađe na teren.</p>
             </div>
+            <div class="img-side">
+                <img src="slika1.jpg" alt="Savamala" class="side-image">
+            </div>
+            <div class="event-dot"></div>
         </div>
 
         <div class="event-row">
-            <div class="event-dot"></div>
             <div class="event-card">
                 <span class="date-tag">29. APRIL 2016.</span>
-                <img src="slika2.jpg" alt="Snimci kamera" class="event-image">
                 <p class="desc-text">KRIK je objavio <a href="https://www.youtube.com/watch?v=S0yCsh9rD54" target="_blank">snimke bezbednosnih kamera</a> na kojima se videlo da su bageri došli iz pravca gradilišta „Beograda na vodi“, kao i da je ulična rasveta bila isključena.</p>
             </div>
-        </div>
-
-        <div class="event-row">
-            <div class="event-dot"></div>
-            <div class="event-card">
-                <span class="date-tag">4. MAJ 2016.</span>
-                <p class="desc-text">Gradonačelnik Siniša Mali je izjavio da je na tom mestu bila predviđena izgradnja projekta „Beograd na vodi“, ali je tvrdio da gradski organi nisu učestvovali u rušenju.</p>
+            <div class="img-side">
+                <img src="slika2.jpg" alt="Kamere" class="side-image">
             </div>
+            <div class="event-dot"></div>
         </div>
 
         <div class="event-row">
-            <div class="event-dot"></div>
-            <div class="event-card">
-                <span class="date-tag">6. MAJ 2016.</span>
-                <p class="desc-text">Gradska preduzeća su bagerima raščistila šut i ostatke porušenih objekata pre nego što je policija obavila uviđaj na licu mesta.</p>
-            </div>
-        </div>
-
-        <div class="event-row">
-            <div class="event-dot"></div>
-            <div class="event-card">
-                <span class="date-tag">9. MAJ 2016.</span>
-                <p class="desc-text">Zaštitnik građana Saša Janković je utvrdio da policija namerno nije reagovala na pozive građana jer je takav nalog stigao sa samog „vrha“ vlasti.</p>
-            </div>
-        </div>
-
-        <div class="event-row">
-            <div class="event-dot"></div>
-            <div class="event-card">
-                <span class="date-tag">11. MAJ 2016.</span>
-                <p class="desc-text">Aleksandar Vučić je izjavio da je bio siguran da država nije stajala iza rušenja, nazvavši odgovorne „kompletnim idiotima“. Istog dana je održan prvi protest pod nazivom „Maske su pale“.</p>
-            </div>
-        </div>
-
-        <div class="event-row">
-            <div class="event-dot"></div>
-            <div class="event-card">
-                <span class="date-tag">25. MAJ 2016.</span>
-                <p class="desc-text">Preminuo je čuvar Slobodan Tanasković, jedini svedok koji je bio direktno maltretiran i vezan od strane maskiranih osoba tokom noći rušenja.</p>
-            </div>
-        </div>
-
-        <div class="event-row">
-            <div class="event-dot"></div>
-            <div class="event-card">
-                <span class="date-tag">8. JUN 2016.</span>
-                <p class="desc-text">Vučić je priznao da su iza rušenja u Savamali stajali „najviši organi gradske vlasti u Beogradu“, ali je dodao da su njihovi motivi bili „najčistiji“.</p>
-            </div>
-        </div>
-
-        <div class="event-row">
-            <div class="event-dot"></div>
             <div class="event-card">
                 <span class="date-tag">12. FEBRUAR 2017.</span>
-                <img src="slika3.jpg" alt="Marija Mali" class="event-image">
                 <p class="desc-text"><a href="https://www.krik.rs/marija-mali-o-poslovima-bivseg-supruga-ofsor-skrivena-imovina-savamala/" target="_blank">Marija Mali je u intervjuu za KRIK</a> otkrila da joj se Siniša Mali pohvalio kako je lično organizovao „akciju raščišćavanja“ u Savamali.</p>
             </div>
+            <div class="img-side">
+                <img src="slika3.jpg" alt="Marija Mali" class="side-image">
+            </div>
+            <div class="event-dot"></div>
         </div>
 
         <div class="event-row">
-            <div class="event-dot"></div>
             <div class="event-card">
                 <span class="date-tag">14. JUN 2017.</span>
-                <p class="desc-text">KRIK je objavio detalje <a href="https://www.krik.rs/izvestaj-o-savamali-policija-nije-otkrila-ko-je-rusio/" target="_blank">policijskog izveštaja</a> koji je pokazao da policija nije uspela da otkrije ko su bile osobe pod fantomkama, niti ko je izdao naređenje.</p>
+                <p class="desc-text">KRIK je objavio detalje <a href="https://www.krik.rs/izvestaj-o-savamali-policija-nije-otkrila-ko-je-rusio/" target="_blank">policijskog izveštaja</a> koji je pokazao da policija nije uspela da otkrije ko su bile osobe pod fantomkama.</p>
             </div>
+            <div class="img-side">
+                <img src="slika4.jpg" alt="Izveštaj" class="side-image">
+            </div>
+            <div class="event-dot"></div>
         </div>
 
         <div class="event-row">
-            <div class="event-dot"></div>
-            <div class="event-card">
-                <span class="date-tag">19. APRIL 2018.</span>
-                <p class="desc-text">Protiv Gorana Stamenkovića, šefa smene u policiji, bila je podneta krivična prijava zbog nesavesnog rada u službi tokom noći rušenja.</p>
-            </div>
-        </div>
-
-        <div class="event-row">
-            <div class="event-dot"></div>
             <div class="event-card">
                 <span class="date-tag">9. MART 2022.</span>
-                <img src="slika4.jpg" alt="Goran Stamenković" class="event-image">
-                <p class="desc-text">Policajac Goran Stamenković je u <a href="https://www.krik.rs/policajac-osudjen-u-slucaju-savamala-otkriva-pozadinu-dogadjaja-rekli-su-mi-da-prihvatim-krivicu-jer-je-pitanje-zivota-i-smrti-za-vlast/" target="_blank">ekskluzivnom intervjuu za KRIK</a> priznao da je bio ucenjen da prihvati krivicu u zamenu za legalizaciju svoje zgrade.</p>
+                <p class="desc-text">Policajac Goran Stamenković je u <a href="https://www.krik.rs/policajac-osudjen-u-slucaju-savamala-otkriva-pozadinu-dogadjaja-rekli-su-mi-da-prihvatim-krivicu-jer-je-pitanje-zivota-i-smrti-za-vlast/" target="_blank">intervjuu za KRIK</a> priznao da je bio ucenjen da prihvati krivicu.</p>
             </div>
+            <div class="img-side">
+                <img src="slika5.jpg" alt="Stamenković" class="side-image">
+            </div>
+            <div class="event-dot"></div>
         </div>
 
-    </div>
+        </div>
 </div>
 
 <script>
@@ -302,7 +265,7 @@
         rows.forEach(row => {
             const rect = row.getBoundingClientRect();
             const containerRect = scrollArea.getBoundingClientRect();
-            if (rect.top < containerRect.bottom - 150) {
+            if (rect.top < containerRect.bottom - 100) {
                 row.classList.add('active');
             } else {
                 row.classList.remove('active');
@@ -322,9 +285,7 @@
     }
 
     document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) {
-            fsBtn.innerText = "Uvećaj";
-        }
+        if (!document.fullscreenElement) fsBtn.innerText = "Uvećaj";
     });
 
     scrollArea.dispatchEvent(new Event('scroll'));
