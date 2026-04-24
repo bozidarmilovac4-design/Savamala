@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --krik-black: #000000;
+            --krik-white: #ffffff;
+            --krik-gray: #f2f2f2;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Glavni kontejner tajmlajna */
+        .krik-timeline-box {
+            width: 100%;
+            max-width: 800px;
+            height: 700px; /* Fiksna visina za embed na sajtu */
+            border: 3px solid var(--krik-black);
+            background: var(--krik-white);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Header sa nazivom i dugmetom */
+        .timeline-header {
+            background: var(--krik-black);
+            color: var(--krik-white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .brand-name { font-weight: 900; letter-spacing: -1px; font-size: 1.2rem; }
+        
+        .fs-button {
+            background: var(--krik-white);
+            color: var(--krik-black);
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* Skrolujuća oblast */
+        .timeline-body {
+            flex-grow: 1;
+            overflow-y: scroll;
+            padding: 40px 20px;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        /* Vertikalna linija */
+        .timeline-line {
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--krik-black);
+            z-index: 1;
+        }
+
+        /* Svaki događaj */
+        .event-item {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .event-item:hover { opacity: 1; }
+
+        /* Tačka na liniji */
+        .event-dot {
+            position: absolute;
+            left: 23px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background: var(--krik-white);
+            border: 3px solid var(--krik-black);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .event-date {
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: var(--krik-white);
+            background: var(--krik-black);
+            padding: 3px 8px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .event-content {
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: var(--krik-white);
+            box-shadow: 4px 4px 0px #eee;
+        }
+
+        .event-content:hover {
+            box-shadow: 6px 6px 0px var(--krik-black);
+            border-color: var(--krik-black);
+        }
+
+        .event-text { font-size: 0.95rem; line-height: 1.6; color: #1a1a1a; }
+
+        /* Fullscreen mod */
+        .krik-timeline-box:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            max-width: none;
+            padding: 0;
+        }
+
+        /* Prilagođavanje za mobitel unutar box-a */
+        @media (max-width: 600px) {
+            .event-content { padding: 15px; }
+            .brand-name { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="krik-timeline-box" id="mainBox">
+    <div class="timeline-header">
+        <div class="brand-name">KRIK | SAVAMALA</div>
+        <button class="fs-button" onclick="goFull()">Uvećaj</button>
+    </div>
+
+    <div class="timeline-body">
+        <div class="timeline-line"></div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">24/25. APRIL 2016.</span>
+            <div class="event-content">
+                <p class="event-text">U izbornoj noći bageri su srušili restoran „Savski ekspres“, firme „Iskra“ i „Transport peroni“. Maskirane osobe su vezale čuvara i oduzele mu telefon. Policija je odbila da izađe na teren.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">29. APRIL 2016.</span>
+            <div class="event-content">
+                <p class="event-text">KRIK je objavio snimke bezbednosnih kamera koji pokazuju da bageri dolaze iz pravca gradilišta „Beograda na vodi“.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">4. MAJ 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Siniša Mali izjavljuje da su rušenja planirana za „Beograd na vodi“, ali da ih nisu obavili gradski organi.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">5. MAJ 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Tužilaštvo nalaže policiji prikupljanje podataka o bespravnom rušenju.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">6. MAJ 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Bageri „Beograd puta“ i „Gradske čistoće“ raščišćavaju šut pre uviđaja policije.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">9. MAJ 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Saša Janković utvrđuje da je policija prekršila zakon po nalogu sa „vrha“.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">11. MAJ 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Vučić: „Onaj ko je to radio je kompletan idiot“. Održan protest „Maske su pale“.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">12. MAJ 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Nebojša Stefanović tvrdi da niko sa vrha policije nije izdao nezakonito naređenje.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">14. MAJ 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Tužilaštvo traži od unutrašnje kontrole MUP-a proveru učešća policajaca.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">25. MAJ 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Preminuo čuvar Slobodan Tanasković, koga su maskirane osobe držale vezanog.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">8. JUN 2016.</span>
+            <div class="event-content">
+                <p class="event-text">Vučić priznaje da iza rušenja stoje „najviši organi gradske vlasti“, ali im je motiv bio „najčistiji“.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">12. FEBRUAR 2017.</span>
+            <div class="event-content">
+                <p class="event-text">Marija Mali za KRIK otkriva da joj se Siniša Mali pohvalio organizovanjem akcije rušenja.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">6. JUL 2017.</span>
+            <div class="event-content">
+                <p class="event-text">Više tužilaštvo se proglašava nenadležnim i slučaj prebacuje na Prvo osnovno tužilaštvo.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">19. APRIL 2018.</span>
+            <div class="event-content">
+                <p class="event-text">Krivična prijava protiv šefa smene Gorana Stamenkovića zbog nesavesnog rada.</p>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-dot"></div>
+            <span class="event-date">9. MART 2022.</span>
+            <div class="event-content">
+                <p class="event-text">Intervju KRIK-a: Stamenković priznaje da je bio ucenjen da prihvati krivicu umesto nalogodavaca.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function goFull() {
+        let box = document.getElementById("mainBox");
+        if (!document.fullscreenElement) {
+            box.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+</script>
+
+</body>
+</html>
