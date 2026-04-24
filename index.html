@@ -20,7 +20,7 @@
         .savamala-widget {
             width: 100%;
             max-width: 1100px; 
-            height: 750px; 
+            height: 800px; 
             border: 3px solid var(--krik-black);
             background: var(--krik-white);
             position: relative;
@@ -58,7 +58,7 @@
             overflow-y: scroll;
             overflow-x: hidden;
             position: relative;
-            padding: 80px 0;
+            padding: 100px 0;
             scroll-behavior: smooth;
         }
 
@@ -88,95 +88,80 @@
         .event-row {
             position: relative;
             width: 100%;
-            margin-bottom: 150px;
+            margin-bottom: 120px;
             display: flex;
-            align-items: flex-start;
+            align-items: center; /* Poravnanje slike i teksta po sredini */
             z-index: 3;
             opacity: 0;
             transform: translateY(50px);
             transition: all 0.7s ease-out;
-            padding: 0 4%;
+            padding: 0 40px;
         }
 
-        .event-row.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .event-row.active { opacity: 1; transform: translateY(0); }
 
-        /* Kartica sa tekstom */
+        /* Kontejner za tekst - fiksna širina da bi stala slika pored */
         .event-card {
-            width: 44%;
+            width: 42%;
             background: var(--krik-white);
             border: 2px solid var(--krik-black);
-            padding: 25px;
-            box-shadow: 10px 10px 0px var(--krik-black);
+            padding: 20px;
+            box-shadow: 8px 8px 0px var(--krik-black);
             position: relative;
         }
 
-        /* Kontejner za sliku pored teksta */
+        /* Kontejner za sliku - fiksna širina */
         .img-side {
-            width: 44%;
+            width: 42%;
             display: flex;
             justify-content: center;
-            align-items: center;
         }
 
         .side-image {
             width: 100%;
-            max-height: 250px;
-            object-fit: cover;
+            max-width: 350px;
             border: 2px solid var(--krik-black);
-            box-shadow: 6px 6px 0px #ccc;
+            box-shadow: 5px 5px 0px #ccc;
         }
 
-        /* Raspored: Tekst levo - Slika desno */
+        /* Zig-Zag logika */
         .event-row:nth-child(odd) { flex-direction: row; }
         .event-row:nth-child(odd) .img-side { margin-left: auto; }
 
-        /* Raspored: Slika levo - Tekst desno */
         .event-row:nth-child(even) { flex-direction: row-reverse; }
         .event-row:nth-child(even) .img-side { margin-right: auto; }
 
         .event-dot {
             position: absolute;
             left: 50%;
-            top: 40px;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             background: var(--krik-white);
-            border: 5px solid var(--krik-black);
+            border: 4px solid var(--krik-black);
             border-radius: 50%;
             transform: translateX(-50%);
             z-index: 5;
         }
 
-        .event-row.active .event-dot {
-            background: var(--krik-black);
-            transform: translateX(-50%) scale(1.2);
-        }
+        .event-row.active .event-dot { background: var(--krik-black); transform: translateX(-50%) scale(1.3); }
 
         .date-tag {
             font-weight: 900;
-            font-size: 1.1rem;
-            border-bottom: 5px solid var(--krik-black);
-            margin-bottom: 15px;
+            font-size: 1rem;
+            border-bottom: 4px solid var(--krik-black);
+            margin-bottom: 12px;
             display: inline-block;
         }
 
-        .desc-text { font-size: 1rem; line-height: 1.7; color: #111; }
+        .desc-text { font-size: 0.95rem; line-height: 1.6; color: #111; }
         .desc-text a { color: var(--krik-black); font-weight: bold; text-decoration: underline; }
 
-        /* Mobilna verzija: Slika ide iznad teksta, sve je u jednoj koloni */
-        @media (max-width: 800px) {
-            .timeline-line-bg, .timeline-progress-bar { left: 25px; transform: none; }
-            .event-row, .event-row:nth-child(even) { 
-                flex-direction: column !important;
-                padding-left: 60px;
-                margin-bottom: 80px;
-            }
-            .event-card, .img-side { width: 95%; margin: 0 !important; }
-            .img-side { margin-bottom: 15px !important; }
-            .event-dot { left: 25px; transform: translateX(-50%); }
+        @media (max-width: 850px) {
+            .timeline-line-bg, .timeline-progress-bar { left: 30px; transform: none; }
+            .event-row, .event-row:nth-child(even) { flex-direction: column !important; padding-left: 70px; margin-bottom: 80px; align-items: flex-start; }
+            .event-card, .img-side { width: 90%; margin: 0 !important; }
+            .img-side { margin-top: 15px; order: 2; }
+            .event-dot { left: 30px; transform: translateX(-50%); top: 20px; }
         }
     </style>
 </head>
@@ -195,10 +180,10 @@
         <div class="event-row">
             <div class="event-card">
                 <span class="date-tag">24/25. APRIL 2016.</span>
-                <p class="desc-text">U izbornoj noći, bageri bez oznaka su srušili objekte u Hercegovačkoj ulici. Maskirane osobe su vezale čuvara Slobodana Tanaskovića i oduzele telefone prolaznicima. Policija je odbila da izađe na teren.</p>
+                <p class="desc-text">U izbornoj noći, bageri bez oznaka su srušili objekte u Hercegovačkoj ulici. Maskirane osobe su vezale čuvara Slobodana Tanaskovića i oduzele telefone prolaznicima.</p>
             </div>
             <div class="img-side">
-                <img src="slika1.jpg" alt="Savamala" class="side-image">
+                <img src="https://www.krik.rs/wp-content/uploads/2016/04/Ru%C5%A1enje-Savamala-1.jpg" class="side-image">
             </div>
             <div class="event-dot"></div>
         </div>
@@ -206,10 +191,43 @@
         <div class="event-row">
             <div class="event-card">
                 <span class="date-tag">29. APRIL 2016.</span>
-                <p class="desc-text">KRIK je objavio <a href="https://www.youtube.com/watch?v=S0yCsh9rD54" target="_blank">snimke bezbednosnih kamera</a> na kojima se videlo da su bageri došli iz pravca gradilišta „Beograda na vodi“, kao i da je ulična rasveta bila isključena.</p>
+                <p class="desc-text">KRIK je objavio <a href="https://www.youtube.com/watch?v=S0yCsh9rD54" target="_blank">snimke bezbednosnih kamera</a> koji su zabeležili kako bageri dolaze iz pravca gradilišta „Beograda na vodi“.</p>
             </div>
             <div class="img-side">
-                <img src="slika2.jpg" alt="Kamere" class="side-image">
+                <img src="https://www.krik.rs/wp-content/uploads/2016/04/Savamala-snimak.jpg" class="side-image">
+            </div>
+            <div class="event-dot"></div>
+        </div>
+
+        <div class="event-row">
+            <div class="event-card">
+                <span class="date-tag">4. MAJ 2016.</span>
+                <p class="desc-text">Gradonačelnik Siniša Mali je izjavio da je na prostoru srušenih objekata predviđena izgradnja projekta „Beograd na vodi“.</p>
+            </div>
+            <div class="img-side">
+                <img src="https://www.krik.rs/wp-content/uploads/2016/04/Ru%C5%A1enje-Savamala.jpg" class="side-image">
+            </div>
+            <div class="event-dot"></div>
+        </div>
+
+        <div class="event-row">
+            <div class="event-card">
+                <span class="date-tag">6. MAJ 2016.</span>
+                <p class="desc-text">Bageri gradskih preduzeća su raščistili ostatke objekata. Policija do tog trenutka nije bila obavila uviđaj.</p>
+            </div>
+            <div class="img-side">
+                <img src="https://www.krik.rs/wp-content/uploads/2016/05/%C4%8Ci%C5%A1%C4%87enje-parcela-u-Savamali.jpg" class="side-image">
+            </div>
+            <div class="event-dot"></div>
+        </div>
+
+        <div class="event-row">
+            <div class="event-card">
+                <span class="date-tag">8. JUN 2016.</span>
+                <p class="desc-text">Aleksandar Vučić je naveo da iza rušenja u Savamali stoje najviši organi gradske vlasti u Beogradu.</p>
+            </div>
+            <div class="img-side">
+                <img src="https://www.krik.rs/wp-content/uploads/2016/05/Aleksandar-Vu%C4%8Di%C4%87-foto-KRIK.jpg" class="side-image">
             </div>
             <div class="event-dot"></div>
         </div>
@@ -217,10 +235,10 @@
         <div class="event-row">
             <div class="event-card">
                 <span class="date-tag">12. FEBRUAR 2017.</span>
-                <p class="desc-text"><a href="https://www.krik.rs/marija-mali-o-poslovima-bivseg-supruga-ofsor-skrivena-imovina-savamala/" target="_blank">Marija Mali je u intervjuu za KRIK</a> otkrila da joj se Siniša Mali pohvalio kako je lično organizovao „akciju raščišćavanja“ u Savamali.</p>
+                <p class="desc-text"><a href="https://www.krik.rs/marija-mali-o-poslovima-bivseg-supruga-ofsor-skrivena-imovina-savamala/" target="_blank">Marija Mali je u intervjuu za KRIK</a> otkrila da joj je bivši suprug ispričao da je organizovao rušenje.</p>
             </div>
             <div class="img-side">
-                <img src="slika3.jpg" alt="Marija Mali" class="side-image">
+                <img src="https://www.krik.rs/wp-content/uploads/2017/02/Sinisa-Mali-1025x480.jpg" class="side-image">
             </div>
             <div class="event-dot"></div>
         </div>
@@ -228,10 +246,21 @@
         <div class="event-row">
             <div class="event-card">
                 <span class="date-tag">14. JUN 2017.</span>
-                <p class="desc-text">KRIK je objavio detalje <a href="https://www.krik.rs/izvestaj-o-savamali-policija-nije-otkrila-ko-je-rusio/" target="_blank">policijskog izveštaja</a> koji je pokazao da policija nije uspela da otkrije ko su bile osobe pod fantomkama.</p>
+                <p class="desc-text">KRIK je objavio <a href="https://www.krik.rs/izvestaj-o-savamali-policija-nije-otkrila-ko-je-rusio/" target="_blank">izveštaj policije</a> koji je potvrdio da rušitelji nisu identifikovani.</p>
             </div>
             <div class="img-side">
-                <img src="slika4.jpg" alt="Izveštaj" class="side-image">
+                <img src="https://www.krik.rs/wp-content/uploads/2016/07/Ru%C5%A1enje-Savamala-april-2016-1.jpg" class="side-image">
+            </div>
+            <div class="event-dot"></div>
+        </div>
+
+        <div class="event-row">
+            <div class="event-card">
+                <span class="date-tag">19. APRIL 2018.</span>
+                <p class="desc-text">Podneta je krivična prijava protiv šefa smene policije Gorana Stamenkovića zbog nesavesnog rada u službi.</p>
+            </div>
+            <div class="img-side">
+                <img src="https://www.krik.rs/wp-content/uploads/2018/06/Ru%C5%A1evine-iz-Hercegova%C4%8Dke-ispred-Ministarstva-finansija-NDMBG.jpg" class="side-image">
             </div>
             <div class="event-dot"></div>
         </div>
@@ -239,15 +268,15 @@
         <div class="event-row">
             <div class="event-card">
                 <span class="date-tag">9. MART 2022.</span>
-                <p class="desc-text">Policajac Goran Stamenković je u <a href="https://www.krik.rs/policajac-osudjen-u-slucaju-savamala-otkriva-pozadinu-dogadjaja-rekli-su-mi-da-prihvatim-krivicu-jer-je-pitanje-zivota-i-smrti-za-vlast/" target="_blank">intervjuu za KRIK</a> priznao da je bio ucenjen da prihvati krivicu.</p>
+                <p class="desc-text"><a href="https://www.krik.rs/policajac-osudjen-u-slucaju-savamala-otkriva-pozadinu-dogadjaja-rekli-su-mi-da-prihvatim-krivicu-jer-je-pitanje-zivota-i-smrti-za-vlast/" target="_blank">Goran Stamenković je za KRIK</a> priznao da je bio ucenjen da prihvati krivicu.</p>
             </div>
             <div class="img-side">
-                <img src="slika5.jpg" alt="Stamenković" class="side-image">
+                <img src="https://www.krik.rs/wp-content/uploads/2022/03/Goran-Stamenkovic-Ilustracija-KRIK.png" class="side-image">
             </div>
             <div class="event-dot"></div>
         </div>
 
-        </div>
+    </div>
 </div>
 
 <script>
@@ -265,23 +294,16 @@
         rows.forEach(row => {
             const rect = row.getBoundingClientRect();
             const containerRect = scrollArea.getBoundingClientRect();
-            if (rect.top < containerRect.bottom - 100) {
-                row.classList.add('active');
-            } else {
-                row.classList.remove('active');
-            }
+            if (rect.top < containerRect.bottom - 100) row.classList.add('active');
+            else row.classList.remove('active');
         });
     });
 
     function toggleFull() {
         let box = document.getElementById("savamalaBox");
         if (!document.fullscreenElement) {
-            box.requestFullscreen().then(() => {
-                fsBtn.innerText = "Umanji";
-            });
-        } else {
-            document.exitFullscreen();
-        }
+            box.requestFullscreen().then(() => { fsBtn.innerText = "Umanji"; });
+        } else { document.exitFullscreen(); }
     }
 
     document.addEventListener('fullscreenchange', () => {
